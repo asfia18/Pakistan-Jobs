@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Pakistan Jobs</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header class="main-header">
+
+        <h1>Pakistan Jobs</h1>
+
+        <nav class="main-nav">
+
+            <a href="index.html">Home</a>
+
+            <a href="index.html">Latest Jobs</a>
+
+            <a href="index.html">Categories</a>
+
+            <a href="login.html">Login</a>
+
+            <a href="register.html">Register</a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- Login Section -->
+
+    <main class="login-page">
+
+        <div class="login-box">
+
+            <h2>Login to Your Account</h2>
+
+
+            <!-- Login Form -->
+
+            <form id="loginForm" novalidate>
+
+                <!-- Email -->
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                >
+
+                <span
+                    id="emailError"
+                    class="error-message">
+                </span>
+
+
+                <!-- Password -->
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                >
+
+                <span
+                    id="passwordError"
+                    class="error-message">
+                </span>
+<div class="forgot-password">
+    <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+</div>
+
+                <!-- Login Button -->
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+
+            <!-- Message -->
+
+            <p id="loginMessage"></p>
+
+
+            <!-- Register -->
+
+            <p class="register-link">
+
+                Don't have an account?
+
+                <a href="register.html">
+                    Register here
+                </a>
+
+            </p>
+
+
+            <!-- Back -->
+
+            <a
+                href="index.html"
+                class="back-home">
+
+                Back to Home
+
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- Supabase Library -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Our Supabase Connection -->
+
+    <script src="supabase.js"></script>
+
+
+    <!-- Login JavaScript -->
+
+    <script>
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const emailInput =
+            document.getElementById("email");
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const emailError =
+            document.getElementById("emailError");
+
+        const passwordError =
+            document.getElementById("passwordError");
+
+        const loginMessage =
+            document.getElementById("loginMessage");
+            // =========================
+// FORGOT PASSWORD
+// =========================
+
+const forgotPasswordLink =
+    document.getElementById("forgotPasswordLink");
+
+if (forgotPasswordLink) {
+
+    forgotPasswordLink.addEventListener(
+        "click",
+        async function(event) {
+
+            event.preventDefault();
+
+            const email =
+                emailInput.value.trim();
+
+            // Email required
+            if (!email) {
+
+                alert(
+                    "Please enter your email address first."
+                );
+
+                emailInput.focus();
+
+                return;
+            }
+
+            // Check email format
+            if (!validateEmail()) {
+
+                emailInput.focus();
+
+                return;
+            }
+
+            // Show message
+            loginMessage.style.color = "#555";
+
+            loginMessage.textContent =
+                "Sending password reset link...";
+
+            // Reset password email
+            const { error } =
+                await supabaseClient.auth
+                    .resetPasswordForEmail(
+                        email,
+                        {
+                            redirectTo:
+                                "http://127.0.0.1:5500/reset-password.html"
+                        }
+                    );
+
+            // Error
+            if (error) {
+
+                console.error(
+                    "Password reset error:",
+                    error
+                );
+
+                loginMessage.style.color =
+                    "#d9534f";
+
+                loginMessage.textContent =
+                    error.message;
+
+                return;
+            }
+
+            // Success
+            loginMessage.style.color =
+                "#2e9d68";
+
+            loginMessage.textContent =
+                "Password reset link has been sent. Please check your email.";
+
+        }
+    );
+
+}
+
+
+        // =========================
+        // EMAIL VALIDATION
+        // =========================
+
+        function validateEmail() {
+
+            const email =
+                emailInput.value.trim();
+
+            emailInput.classList.remove(
+                "valid",
+                "invalid"
+            );
+
+            emailError.textContent = "";
+
+
+            if (email === "") {
+
+                emailError.textContent =
+                    "Email is required.";
+
+                emailInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+            }
+
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (!emailPattern.test(email)) {
+
+                emailError.textContent =
+                    "Please enter a valid email.";
+
+                emailInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+            }
+
+
+            emailInput.classList.add(
+                "valid"
+            );
+
+            return true;
+        }
+
+
+        // =========================
+        // PASSWORD VALIDATION
+        // =========================
+
+        function validatePassword() {
+
+            const password =
+                passwordInput.value;
+
+            passwordInput.classList.remove(
+                "valid",
+                "invalid"
+            );
+
+            passwordError.textContent = "";
+
+
+            if (password === "") {
+
+                passwordError.textContent =
+                    "Password is required.";
+
+                passwordInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+            }
+
+
+            if (password.length < 8) {
+
+                passwordError.textContent =
+                    "Password must contain at least 8 characters.";
+
+                passwordInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+            }
+
+
+            passwordInput.classList.add(
+                "valid"
+            );
+
+            return true;
+        }
+
+
+        // =========================
+        // LIVE VALIDATION
+        // =========================
+
+        emailInput.addEventListener(
+            "input",
+            validateEmail
+        );
+
+        passwordInput.addEventListener(
+            "input",
+            validatePassword
+        );
+
+
+        // =========================
+        // REAL SUPABASE LOGIN
+        // =========================
+
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const emailIsValid =
+                    validateEmail();
+
+                const passwordIsValid =
+                    validatePassword();
+
+
+                loginMessage.textContent = "";
+
+
+                if (
+                    !emailIsValid ||
+                    !passwordIsValid
+                ) {
+
+                    loginMessage.style.color =
+                        "#d9534f";
+
+                    loginMessage.textContent =
+                        "Please correct the errors above.";
+
+                    return;
+                }
+
+
+                // Show loading message
+
+                loginMessage.style.color =
+                    "#555";
+
+                loginMessage.textContent =
+                    "Logging in...";
+
+
+                // Supabase Login
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.auth
+                        .signInWithPassword({
+
+                            email:
+                                emailInput.value.trim(),
+
+                            password:
+                                passwordInput.value
+
+                        });
+
+
+                // Login failed
+
+                if (error) {
+
+                    loginMessage.style.color =
+                        "#d9534f";
+
+                    loginMessage.textContent =
+                        error.message;
+
+                    return;
+                }
+
+
+                // Login successful
+
+                loginMessage.style.color =
+                    "#2e9d68";
+
+                loginMessage.textContent =
+                    "Login successful!";
+
+
+                // Check whether this user is Admin
+
+                const {
+                    data: adminStatus,
+                    error: adminError
+                } =
+                    await supabaseClient.rpc(
+                        "is_admin"
+                    );
+
+
+                if (
+                    !adminError &&
+                    adminStatus === true
+                ) {
+
+                    // Admin → Admin Dashboard
+
+                    window.location.href =
+                        "admin.html";
+
+                } else {
+
+                    // Normal user → Home
+
+                    window.location.href =
+                        "index.html";
+
+                }
+
+            }
+        );
+
+    
+
+    </script>
+
+</body>
+
+</html>

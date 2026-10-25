@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Job Categories - Pakistan Jobs</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<header class="main-header">
+
+    <div class="brand-section">
+
+        <h1>Pakistan Jobs</h1>
+
+        <p>Find Jobs by Category</p>
+
+    </div>
+
+</header>
+
+
+<nav>
+
+    <a href="index.html">Home</a>
+
+    <a href="#">Latest Jobs</a>
+
+    <a href="category.html">Categories</a>
+
+    <a href="login.html">Login</a>
+
+    <a href="register.html">Register</a>
+
+</nav>
+
+
+<main class="category-page">
+
+    <section class="category-header">
+
+        <h2>Job Categories</h2>
+
+        <p>
+            Select a category to find related job opportunities.
+        </p>
+
+    </section>
+
+
+    <section class="category-grid">
+
+        <a href="category.html?category=Federal%20Jobs" class="category-card">
+            <h3>Federal Jobs</h3>
+            <p>View federal government jobs</p>
+        </a>
+
+
+        <a href="category.html?category=Punjab%20Jobs" class="category-card">
+            <h3>Punjab Jobs</h3>
+            <p>View jobs in Punjab</p>
+        </a>
+
+
+        <a href="category.html?category=Sindh%20Jobs" class="category-card">
+            <h3>Sindh Jobs</h3>
+            <p>View jobs in Sindh</p>
+        </a>
+
+
+        <a href="category.html?category=KPK%20Jobs" class="category-card">
+            <h3>KPK Jobs</h3>
+            <p>View jobs in KPK</p>
+        </a>
+
+
+        <a href="category.html?category=Balochistan%20Jobs" class="category-card">
+            <h3>Balochistan Jobs</h3>
+            <p>View jobs in Balochistan</p>
+        </a>
+
+
+        <a href="category.html?category=Police%20Jobs" class="category-card">
+            <h3>Police Jobs</h3>
+            <p>View police jobs</p>
+        </a>
+
+
+        <a href="category.html?category=Education%20Jobs" class="category-card">
+            <h3>Education Jobs</h3>
+            <p>View education jobs</p>
+        </a>
+
+
+        <a href="category.html?category=Health%20Jobs" class="category-card">
+            <h3>Health Jobs</h3>
+            <p>View health jobs</p>
+        </a>
+
+
+        <a href="category.html?category=Banking%20Jobs" class="category-card">
+            <h3>Banking Jobs</h3>
+            <p>View banking jobs</p>
+        </a>
+
+
+        <a href="category.html?category=Engineering%20Jobs" class="category-card">
+            <h3>Engineering Jobs</h3>
+            <p>View engineering jobs</p>
+        </a>
+
+
+        <a href="category.html?category=Other" class="category-card">
+            <h3>Other</h3>
+            <p>View other job opportunities</p>
+        </a>
+
+    </section>
+
+
+    <section class="category-jobs">
+
+        <h2 id="categoryTitle">
+            Select a Category
+        </h2>
+
+
+        <div id="categoryJobsContainer">
+
+            <p>
+                Select a category above to view jobs.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 Pakistan Jobs. All Rights Reserved.
+    </p>
+
+    <p>
+        This website is not an official government website.
+    </p>
+
+</footer>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase.js"></script>
+
+
+<script>
+
+const categoryTitle =
+    document.getElementById("categoryTitle");
+
+const categoryJobsContainer =
+    document.getElementById("categoryJobsContainer");
+
+
+/* =========================
+   GET SELECTED CATEGORY
+========================= */
+
+const urlParams =
+    new URLSearchParams(window.location.search);
+
+const selectedCategory =
+    urlParams.get("category");
+
+
+/* =========================
+   LOAD CATEGORY JOBS
+========================= */
+
+async function loadCategoryJobs() {
+
+    if (!selectedCategory) {
+
+        return;
+
+    }
+
+
+    categoryTitle.textContent =
+        selectedCategory;
+
+
+    categoryJobsContainer.innerHTML =
+        "<p>Loading jobs...</p>";
+
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("jobs")
+        .select("*")
+        .eq("category", selectedCategory)
+        .order("created_at", {
+            ascending: false
+        });
+
+
+    if (error) {
+
+        console.error(error);
+
+        categoryJobsContainer.innerHTML = `
+            <p style="color:red;">
+                Jobs could not be loaded.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    displayCategoryJobs(data || []);
+
+}
+
+
+/* =========================
+   DISPLAY JOBS
+========================= */
+
+function displayCategoryJobs(jobs) {
+
+    categoryJobsContainer.innerHTML = "";
+
+
+    if (jobs.length === 0) {
+
+        categoryJobsContainer.innerHTML = `
+            <p>
+                No jobs found in this category.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    jobs.forEach(function(job) {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "job-card";
+
+
+        /* IMAGE */
+
+        if (job.image_url) {
+
+            const image =
+                document.createElement("img");
+
+            image.src =
+                job.image_url;
+
+            image.alt =
+                job.title || "Job Advertisement";
+
+            image.className =
+                "job-ad-image";
+
+            card.appendChild(image);
+
+        }
+
+
+        /* TITLE */
+
+        const title =
+            document.createElement("h3");
+
+        title.textContent =
+            job.title || "Job Advertisement";
+
+        card.appendChild(title);
+
+
+        /* DEPARTMENT */
+
+        if (job.department) {
+
+            const department =
+                document.createElement("p");
+
+            department.innerHTML =
+                "<strong>Department:</strong> "
+                + escapeHTML(job.department);
+
+            card.appendChild(department);
+
+        }
+
+
+        /* PROVINCE */
+
+        if (job.province) {
+
+            const province =
+                document.createElement("p");
+
+            province.innerHTML =
+                "<strong>Province:</strong> "
+                + escapeHTML(job.province);
+
+            card.appendChild(province);
+
+        }
+
+
+        /* LOCATIONS */
+
+        if (
+            job.locations &&
+            job.locations.length > 0
+        ) {
+
+            const location =
+                document.createElement("p");
+
+            location.innerHTML =
+                "<strong>Location:</strong> "
+                + escapeHTML(
+                    job.locations.join(", ")
+                );
+
+            card.appendChild(location);
+
+        }
+
+
+        /* QUALIFICATION */
+
+        if (job.qualification) {
+
+            const qualification =
+                document.createElement("p");
+
+            qualification.innerHTML =
+                "<strong>Qualification:</strong> "
+                + escapeHTML(
+                    job.qualification
+                );
+
+            card.appendChild(qualification);
+
+        }
+
+
+        /* LAST DATE */
+
+        if (job.last_date) {
+
+            const lastDate =
+                document.createElement("p");
+
+            lastDate.innerHTML =
+                "<strong>Last Date:</strong> "
+                + escapeHTML(job.last_date);
+
+            card.appendChild(lastDate);
+
+        }
+
+
+        /* DESCRIPTION */
+
+        if (job.description) {
+
+            const description =
+                document.createElement("p");
+
+            description.innerHTML =
+                "<strong>Details:</strong> "
+                + escapeHTML(
+                    job.description
+                );
+
+            card.appendChild(description);
+
+        }
+
+
+        /* APPLY BUTTON */
+
+        if (job.apply_link) {
+
+            const applyButton =
+                document.createElement("a");
+
+            applyButton.href =
+                job.apply_link;
+
+            applyButton.target =
+                "_blank";
+
+            applyButton.rel =
+                "noopener noreferrer";
+
+            applyButton.className =
+                "apply-btn";
+
+            applyButton.textContent =
+                "Apply Now";
+
+            card.appendChild(applyButton);
+
+        }
+
+
+        categoryJobsContainer.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================
+   HTML SECURITY
+========================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadCategoryJobs();
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register - Pakistan Jobs</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header class="main-header">
+
+        <div class="brand-section">
+
+            <h1>Pakistan Jobs</h1>
+
+            <p>Find Latest Government Jobs in Pakistan</p>
+
+        </div>
+
+        <nav class="main-nav">
+
+            <a href="index.html">Home</a>
+
+            <a href="index.html#latestJobs">Latest Jobs</a>
+
+            <a href="category.html">Categories</a>
+
+            <a href="login.html">Login</a>
+
+            <a href="register.html">Register</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Register Section -->
+
+    <main class="login-page">
+
+        <div class="login-box">
+
+            <h2>Create Your Account</h2>
+
+            <form id="registerForm" novalidate>
+
+                <!-- Full Name -->
+
+                <label for="fullName">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="fullName"
+                    placeholder="Enter your full name"
+                    autocomplete="name"
+                >
+
+                <span id="nameError" class="error-message"></span>
+
+
+
+                <!-- Email -->
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                >
+
+                <span id="emailError" class="error-message"></span>
+
+
+
+                <!-- Password -->
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                >
+
+                <span id="passwordError" class="error-message"></span>
+
+
+
+                <!-- Confirm Password -->
+
+                <label for="confirmPassword">
+                    Confirm Password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    autocomplete="new-password"
+                >
+
+                <span id="confirmPasswordError" class="error-message"></span>
+
+
+
+                <!-- Register Button -->
+
+                <button type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+
+
+            <!-- Message -->
+
+            <p id="registerMessage"></p>
+
+
+
+            <!-- Login Link -->
+
+            <p>
+                Already have an account?
+
+                <a href="login.html" class="back-home">
+                    Login here
+                </a>
+            </p>
+
+
+            <a href="index.html" class="back-home">
+                Back to Home
+            </a>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="supabase.js"></script>
+
+
+
+    <!-- Register JavaScript -->
+
+    <script>
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        const fullNameInput =
+            document.getElementById("fullName");
+
+        const emailInput =
+            document.getElementById("email");
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const confirmPasswordInput =
+            document.getElementById("confirmPassword");
+
+
+        const nameError =
+            document.getElementById("nameError");
+
+        const emailError =
+            document.getElementById("emailError");
+
+        const passwordError =
+            document.getElementById("passwordError");
+
+        const confirmPasswordError =
+            document.getElementById("confirmPasswordError");
+
+
+        const registerMessage =
+            document.getElementById("registerMessage");
+
+
+
+        /* ================================
+           FULL NAME VALIDATION
+        ================================= */
+
+        function validateName() {
+
+            const fullName =
+                fullNameInput.value.trim();
+
+            fullNameInput.classList.remove(
+                "valid",
+                "invalid"
+            );
+
+            nameError.textContent = "";
+
+
+            if (fullName === "") {
+
+                nameError.textContent =
+                    "Full name is required.";
+
+                fullNameInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+
+            }
+
+
+            if (fullName.length < 3) {
+
+                nameError.textContent =
+                    "Name must contain at least 3 characters.";
+
+                fullNameInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+
+            }
+
+
+            fullNameInput.classList.add(
+                "valid"
+            );
+
+            return true;
+
+        }
+
+
+
+        /* ================================
+           EMAIL VALIDATION
+        ================================= */
+
+        function validateEmail() {
+
+            const email =
+                emailInput.value.trim();
+
+            emailInput.classList.remove(
+                "valid",
+                "invalid"
+            );
+
+            emailError.textContent = "";
+
+
+            if (email === "") {
+
+                emailError.textContent =
+                    "Email is required.";
+
+                emailInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+
+            }
+
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (!emailPattern.test(email)) {
+
+                emailError.textContent =
+                    "Please enter a valid email.";
+
+                emailInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+
+            }
+
+
+            emailInput.classList.add(
+                "valid"
+            );
+
+            return true;
+
+        }
+
+
+
+        /* ================================
+           PASSWORD VALIDATION
+        ================================= */
+
+        function validatePassword() {
+
+            const password =
+                passwordInput.value;
+
+            passwordInput.classList.remove(
+                "valid",
+                "invalid"
+            );
+
+            passwordError.textContent = "";
+
+
+            if (password === "") {
+
+                passwordError.textContent =
+                    "Password is required.";
+
+                passwordInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+
+            }
+
+
+            if (password.length < 8) {
+
+                passwordError.textContent =
+                    "Password must contain at least 8 characters.";
+
+                passwordInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+
+            }
+
+
+            passwordInput.classList.add(
+                "valid"
+            );
+
+            return true;
+
+        }
+
+
+
+        /* ================================
+           CONFIRM PASSWORD VALIDATION
+        ================================= */
+
+        function validateConfirmPassword() {
+
+            const password =
+                passwordInput.value;
+
+            const confirmPassword =
+                confirmPasswordInput.value;
+
+
+            confirmPasswordInput.classList.remove(
+                "valid",
+                "invalid"
+            );
+
+            confirmPasswordError.textContent = "";
+
+
+            if (confirmPassword === "") {
+
+                confirmPasswordError.textContent =
+                    "Please confirm your password.";
+
+                confirmPasswordInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+
+            }
+
+
+            if (password !== confirmPassword) {
+
+                confirmPasswordError.textContent =
+                    "Passwords do not match.";
+
+                confirmPasswordInput.classList.add(
+                    "invalid"
+                );
+
+                return false;
+
+            }
+
+
+            confirmPasswordInput.classList.add(
+                "valid"
+            );
+
+            return true;
+
+        }
+
+
+
+        /* ================================
+           LIVE VALIDATION
+        ================================= */
+
+        fullNameInput.addEventListener(
+            "input",
+            validateName
+        );
+
+
+        emailInput.addEventListener(
+            "input",
+            validateEmail
+        );
+
+
+        passwordInput.addEventListener(
+            "input",
+            function() {
+
+                validatePassword();
+
+                validateConfirmPassword();
+
+            }
+        );
+
+
+        confirmPasswordInput.addEventListener(
+            "input",
+            validateConfirmPassword
+        );
+
+
+
+        /* ================================
+           REGISTER USER
+        ================================= */
+
+        registerForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const nameIsValid =
+                    validateName();
+
+                const emailIsValid =
+                    validateEmail();
+
+                const passwordIsValid =
+                    validatePassword();
+
+                const confirmPasswordIsValid =
+                    validateConfirmPassword();
+
+
+                registerMessage.textContent = "";
+
+
+
+                if (
+                    !nameIsValid ||
+                    !emailIsValid ||
+                    !passwordIsValid ||
+                    !confirmPasswordIsValid
+                ) {
+
+                    registerMessage.style.color =
+                        "#d9534f";
+
+                    registerMessage.textContent =
+                        "Please correct the errors above.";
+
+                    return;
+
+                }
+
+
+
+                /* ================================
+                   SHOW LOADING
+                ================================= */
+
+                const registerButton =
+                    registerForm.querySelector(
+                        "button[type='submit']"
+                    );
+
+
+                registerButton.disabled = true;
+
+                registerButton.textContent =
+                    "Creating Account...";
+
+
+
+                /* ================================
+                   SUPABASE SIGN UP
+                ================================= */
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.auth.signUp({
+
+                        email:
+                            emailInput.value.trim(),
+
+                        password:
+                            passwordInput.value,
+
+                        options: {
+
+                            data: {
+
+                                full_name:
+                                    fullNameInput.value.trim()
+
+                            }
+
+                        }
+
+                    });
+
+
+
+                /* ================================
+                   ERROR
+                ================================= */
+
+                if (error) {
+
+                    console.error(error);
+
+
+                    registerMessage.style.color =
+                        "#d9534f";
+
+                    registerMessage.textContent =
+                        error.message;
+
+
+                    registerButton.disabled =
+                        false;
+
+                    registerButton.textContent =
+                        "Create Account";
+
+                    return;
+
+                }
+
+
+
+                /* ================================
+                   SUCCESS
+                ================================= */
+
+                registerMessage.style.color =
+                    "#2e9d68";
+
+
+                if (
+                    data.user &&
+                    data.session
+                ) {
+
+                    registerMessage.textContent =
+                        "Account created successfully! Redirecting to Login...";
+
+                } else {
+
+                    registerMessage.textContent =
+                        "Account created successfully! Please check your email to confirm your account, then Login.";
+
+                }
+
+
+
+                registerForm.reset();
+
+
+                fullNameInput.classList.remove(
+                    "valid",
+                    "invalid"
+                );
+
+                emailInput.classList.remove(
+                    "valid",
+                    "invalid"
+                );
+
+                passwordInput.classList.remove(
+                    "valid",
+                    "invalid"
+                );
+
+                confirmPasswordInput.classList.remove(
+                    "valid",
+                    "invalid"
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "login.html";
+
+                    },
+                    2500
+                );
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

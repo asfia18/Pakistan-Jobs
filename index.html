@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pakistan Jobs - Government Jobs</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header class="main-header">
+
+    <div class="brand-section">
+
+        <h1>Pakistan Jobs</h1>
+
+        <p>
+            Find Latest Jobs in Pakistan
+        </p>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="#latestJobs">
+            Latest Jobs
+        </a>
+
+        <a href="category.html">
+            Categories
+        </a>
+
+        <a href="login.html">
+            Login
+        </a>
+
+        <a href="register.html">
+            Register
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =====================================
+     MOVING LOGIN / REGISTER BAR
+===================================== -->
+
+<div class="ticker-wrapper">
+
+    <div class="ticker-content">
+
+        🔔 For more latest jobs, please
+
+        <a href="login.html">
+            Login
+        </a>
+
+        or
+
+        <a href="register.html">
+            Register
+        </a>
+
+        to receive personalized job alerts on your email.
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        🔔 For more latest jobs, please
+
+        <a href="login.html">
+            Login
+        </a>
+
+        or
+
+        <a href="register.html">
+            Register
+        </a>
+
+        to receive personalized job alerts on your email.
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+     MAIN
+===================================== -->
+
+<main>
+
+
+    <!-- =================================
+         HERO
+    ================================== -->
+
+    <section class="hero">
+
+
+        <!-- IMAGE SLIDER -->
+
+        <div class="hero-slider">
+
+            <img
+                src="images/pakistan1.jpeg"
+                class="hero-slide active"
+                alt="Pakistan Jobs"
+            >
+
+
+            <img
+                src="images/pakistan2.jpg"
+                class="hero-slide"
+                alt="Government Jobs Pakistan"
+            >
+
+
+            <img
+                src="images/pakistan3.jpg"
+                class="hero-slide"
+                alt="Pakistan Career"
+            >
+
+
+            <img
+                src="images/pakistan4.jpeg"
+                class="hero-slide"
+                alt="Pakistan Employment"
+            >
+
+        </div>
+
+
+        <!-- HERO CONTENT -->
+
+        <div class="hero-overlay">
+
+            <h2>
+                Find Your Dream Job
+            </h2>
+
+            <p>
+                Explore the latest government job opportunities in Pakistan.
+            </p>
+
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search jobs..."
+                >
+
+                <button
+                    type="button"
+                    id="searchButton"
+                >
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================
+         LATEST JOBS
+    ================================== -->
+
+    <section
+        class="jobs"
+        id="latestJobs"
+    >
+
+        <h2>
+            Latest Jobs
+        </h2>
+
+
+        <div id="jobsContainer">
+
+            <p class="loading-text">
+                Loading latest jobs...
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<footer>
+
+    <p>
+        © 2026 Pakistan Jobs. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase.js"></script>
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1637 @@
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+
+    background: #ffffff;
+
+    color: #29263d;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.main-header {
+    background: linear-gradient(
+        120deg,
+        #eee8fa,
+        #c9b9e8,
+        #9b85c4,
+        #7054a0,
+        #3f2b63,
+        #7054a0,
+        #9b85c4,
+        #c9b9e8,
+        #eee8fa
+    );
+
+    background-size: 400% 400%;
+
+    animation: headerColorChange 20s ease-in-out infinite;
+
+    color: white;
+
+    text-align: center;
+
+    padding-top: 25px;
+
+    box-shadow:
+        0 5px 20px rgba(48, 34, 79, 0.18);
+}
+
+
+@keyframes headerColorChange {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    25% {
+        background-position: 50% 0%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    75% {
+        background-position: 50% 100%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+}
+
+.brand-section {
+    padding:
+        10px
+        20px
+        25px;
+}
+
+
+.brand-section h1 {
+    margin: 0 0 8px;
+
+    font-size:
+        clamp(28px, 5vw, 44px);
+
+    letter-spacing: 0.5px;
+}
+
+
+.brand-section p {
+    margin: 0;
+
+    font-size:
+        clamp(14px, 2vw, 18px);
+
+    color: #eee9fa;
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+nav {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    padding: 12px 15px;
+
+    background: #211b32;
+}
+
+
+nav a {
+    color: white;
+
+    text-decoration: none;
+
+    padding:
+        10px
+        15px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        0.3s ease;
+}
+
+
+nav a:hover {
+    background: #7764b0;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================
+   MOVING LOGIN / REGISTER BAR
+========================================= */
+
+.ticker-wrapper {
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #f1edfa;
+
+    border-bottom:
+        1px solid #ddd4ef;
+
+    white-space: nowrap;
+}
+
+
+.ticker-content {
+    display: inline-block;
+
+    padding:
+        13px
+        0;
+
+    color: #40385c;
+
+    font-size: 14px;
+
+    animation:
+        tickerMove 22s linear infinite;
+}
+
+
+.ticker-content a {
+    color: #6651a0;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    margin: 0 5px;
+}
+
+
+.ticker-content a:hover {
+    text-decoration: underline;
+}
+
+
+@keyframes tickerMove {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+main {
+    width: 92%;
+
+    max-width: 1150px;
+
+    margin: 0 auto;
+
+    padding:
+        35px
+        0
+        60px;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+    position: relative;
+
+    height:
+        clamp(390px, 55vw, 560px);
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    margin-bottom: 50px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(47, 35, 77, 0.18);
+
+    animation:
+        heroAppear 0.9s ease both;
+}
+
+
+.hero-slider {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+.hero-slide {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    opacity: 0;
+
+    transform:
+        scale(1.04);
+
+    transition:
+        opacity 1.2s ease,
+        transform 3s ease;
+}
+
+
+.hero-slide.active {
+    opacity: 1;
+
+    transform:
+        scale(1);
+}
+
+
+/* =========================================
+   HERO DARK OVERLAY
+========================================= */
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(31, 23, 51, 0.70),
+            rgba(31, 23, 51, 0.20)
+        );
+
+    z-index: 1;
+}
+
+
+/* =========================================
+   HERO CONTENT
+========================================= */
+
+.hero-overlay {
+    position: relative;
+
+    z-index: 2;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: white;
+}
+
+
+.hero-overlay h2 {
+    margin:
+        0
+        0
+        15px;
+
+    font-size:
+        clamp(28px, 5vw, 48px);
+
+    text-shadow:
+        0 3px 15px
+        rgba(0, 0, 0, 0.3);
+
+    animation:
+        heroText 1s ease both;
+}
+
+
+.hero-overlay p {
+    max-width: 650px;
+
+    margin:
+        0
+        0
+        30px;
+
+    font-size:
+        clamp(15px, 2vw, 19px);
+
+    line-height: 1.6;
+
+    color: #f5f1fb;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-box {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: stretch;
+
+    width: min(750px, 95%);
+
+    gap: 10px;
+}
+
+
+.search-box input {
+    flex: 1;
+
+    min-width: 0;
+
+    padding:
+        15px
+        18px;
+
+    border:
+        2px solid
+        rgba(255, 255, 255, 0.8);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    color: #29263d;
+}
+
+
+.search-box input:focus {
+    border-color: #bca9e7;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(188, 169, 231, 0.25);
+}
+
+
+.search-box button {
+    border: none;
+
+    padding:
+        0
+        28px;
+
+    border-radius: 10px;
+
+    background: #7562ae;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        0.3s ease;
+}
+
+
+.search-box button:hover {
+    background: #5b488f;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(55, 40, 92, 0.3);
+}
+
+
+/* =========================================
+   JOBS
+========================================= */
+
+.jobs h2 {
+    text-align: center;
+
+    font-size:
+        clamp(27px, 4vw, 35px);
+
+    color: #30294a;
+
+    margin-bottom: 30px;
+}
+
+
+#jobsContainer {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(280px, 1fr)
+        );
+
+    gap: 25px;
+}
+
+
+/* =========================================
+   JOB CARD
+========================================= */
+
+.job-card {
+    background: white;
+
+    border:
+        1px solid #e3dcef;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 7px 25px
+        rgba(57, 43, 87, 0.08);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+
+    animation:
+        cardAppear 0.7s ease both;
+}
+
+
+.job-card:hover {
+    transform:
+        translateY(-8px);
+
+    border-color:
+        #b9a6dc;
+
+    box-shadow:
+        0 15px 35px
+        rgba(57, 43, 87, 0.15);
+}
+
+
+.job-card h3 {
+    margin-top: 0;
+
+    color: #392e58;
+
+    font-size: 21px;
+}
+
+
+.job-card p {
+    color: #68627a;
+
+    line-height: 1.5;
+
+    margin:
+        8px
+        0;
+}
+
+
+/* =========================================
+   JOB IMAGE
+========================================= */
+
+.job-ad-image,
+.job-image-preview {
+    width: 100%;
+
+    max-height: 450px;
+
+    object-fit: contain;
+
+    display: block;
+
+    margin:
+        0
+        0
+        18px;
+
+    border-radius: 12px;
+
+    background: #f5f2fa;
+}
+
+
+/* =========================================
+   APPLY BUTTON
+========================================= */
+
+.apply-btn {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding:
+        11px
+        20px;
+
+    background: #7562ae;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 9px;
+
+    font-weight: 700;
+
+    transition:
+        0.3s ease;
+}
+
+
+.apply-btn:hover {
+    background: #59458c;
+
+    transform:
+        translateY(-3px);
+}
+
+
+/* =========================================
+   DELETE BUTTON
+========================================= */
+
+.delete-job-btn {
+    border: none;
+
+    background: #e05252;
+
+    color: white;
+
+    padding:
+        10px
+        16px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+    transition:
+        0.3s ease;
+}
+
+
+.delete-job-btn:hover {
+    background: #bd3737;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================
+   EDIT BUTTON
+========================================= */
+
+.edit-job-btn {
+    border: none;
+
+    background: #7562ae;
+
+    color: white;
+
+    padding:
+        10px
+        16px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+    margin-right: 7px;
+
+    transition:
+        0.3s ease;
+}
+
+
+.edit-job-btn:hover {
+    background: #59458c;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    text-align: center;
+
+    padding:
+        25px
+        15px;
+
+    background: #211b32;
+
+    color: #ddd7eb;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   LOGIN / REGISTER PAGE
+========================================= */
+
+.login-page,
+.register-page {
+    min-height:
+        calc(100vh - 150px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #faf8ff,
+            #eee8fa
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding:
+        50px
+        20px;
+}
+
+
+.login-box,
+.register-box {
+    width: 100%;
+
+    max-width: 440px;
+
+    background: white;
+
+    padding: 35px;
+
+    border:
+        1px solid #dfd6ef;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(55, 40, 90, 0.12);
+
+    animation:
+        cardAppear 0.7s ease both;
+}
+
+
+.login-box h2,
+.register-box h2 {
+    text-align: center;
+
+    color: #392e58;
+
+    margin-top: 0;
+
+    font-size: 28px;
+}
+
+
+.login-box p,
+.register-box p {
+    color: #777083;
+
+    text-align: center;
+
+    line-height: 1.5;
+}
+
+
+.login-box label,
+.register-box label {
+    display: block;
+
+    margin:
+        18px
+        0
+        7px;
+
+    color: #42375c;
+
+    font-weight: 600;
+}
+
+
+.login-box input,
+.register-box input {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border:
+        1px solid #dcd3ea;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+
+.login-box input:focus,
+.register-box input:focus {
+    border-color: #8d79c0;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(141, 121, 192, 0.12);
+}
+
+
+.login-box button,
+.register-box button {
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #7562ae;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        0.3s ease;
+}
+
+
+.login-box button:hover,
+.register-box button:hover {
+    background: #59458c;
+
+    transform:
+        translateY(-2px);
+}
+
+
+.login-register-link {
+    margin-top: 20px;
+
+    text-align: center;
+}
+
+
+.login-register-link a {
+    color: #6752a0;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+.login-register-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   CATEGORY PAGE
+========================================= */
+
+.category-page {
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding:
+        50px
+        20px;
+}
+
+
+.category-header {
+    text-align: center;
+
+    margin-bottom: 40px;
+}
+
+
+.category-header h2 {
+    color: #392e58;
+
+    font-size:
+        clamp(28px, 5vw, 36px);
+}
+
+
+.category-header p {
+    color: #777083;
+}
+
+
+.category-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px, 1fr)
+        );
+
+    gap: 22px;
+}
+
+
+.category-card {
+    display: block;
+
+    text-decoration: none;
+
+    background: white;
+
+    border:
+        1px solid #e3dcef;
+
+    border-radius: 17px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 6px 20px
+        rgba(57, 43, 87, 0.07);
+
+    transition:
+        0.35s ease;
+}
+
+
+.category-card:hover {
+    transform:
+        translateY(-8px);
+
+    border-color:
+        #b9a6dc;
+
+    box-shadow:
+        0 15px 30px
+        rgba(57, 43, 87, 0.13);
+}
+
+
+.category-card h3 {
+    color: #6b54a0;
+
+    margin-bottom: 8px;
+}
+
+
+.category-card p {
+    color: #777083;
+}
+
+
+/* =========================================
+   ADMIN
+========================================= */
+
+.admin-container {
+    max-width: 1000px;
+
+    margin: 40px auto;
+
+    padding:
+        35px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 35px
+        rgba(57, 43, 87, 0.08);
+}
+
+
+.admin-container h2 {
+    color: #392e58;
+}
+
+
+.admin-container label {
+    display: block;
+
+    margin:
+        18px
+        0
+        7px;
+
+    font-weight: 600;
+
+    color: #42375c;
+}
+
+
+.admin-container input[type="text"],
+.admin-container input[type="url"],
+.admin-container input[type="date"],
+.admin-container input[type="file"],
+.admin-container select,
+.admin-container textarea {
+    width: 100%;
+
+    padding: 12px;
+
+    border:
+        1px solid #dcd3ea;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    box-sizing: border-box;
+}
+
+
+.admin-container textarea {
+    resize: vertical;
+}
+
+
+.admin-container button[type="submit"] {
+    margin-top: 20px;
+
+    padding:
+        12px
+        25px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #7562ae;
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.admin-container button[type="submit"]:hover {
+    background: #59458c;
+}
+
+
+.location-checkboxes {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(150px, 1fr)
+        );
+
+    gap: 10px;
+
+    padding:
+        15px;
+
+    background: #f7f4fc;
+
+    border-radius: 10px;
+}
+
+
+.location-checkboxes label {
+    margin: 0;
+
+    font-weight: normal;
+}
+
+
+.form-help {
+    color: #777083;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes heroAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+@keyframes heroText {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+@keyframes cardAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    nav {
+        gap: 3px;
+    }
+
+
+    nav a {
+        padding:
+            8px
+            9px;
+
+        font-size: 12px;
+    }
+
+
+    main {
+        width: 94%;
+
+        padding-top: 25px;
+    }
+
+
+    .hero {
+        height: 430px;
+
+        border-radius: 18px;
+    }
+
+
+    .hero-overlay {
+        padding: 18px;
+    }
+
+
+    .search-box {
+        flex-direction: column;
+
+        width: 95%;
+    }
+
+
+    .search-box input {
+        width: 100%;
+    }
+
+
+    .search-box button {
+        padding: 13px;
+
+        width: 100%;
+    }
+
+
+    .login-page,
+    .register-page {
+        padding:
+            30px
+            15px;
+    }
+
+
+    .login-box,
+    .register-box {
+        padding: 25px 20px;
+    }
+
+
+    .admin-container {
+        margin:
+            20px 12px;
+
+        padding:
+            22px 18px;
+    }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+
+        transition-duration: 0.01ms !important;
+    }
+
+}
+ /* =========================================
+   HEADER COLOR CYCLE + SUBTLE GLITTER
+========================================= */
+
+.main-header {
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(
+        120deg,
+        #eee8fa,
+        #c9b9e8,
+        #9b85c4,
+        #7054a0,
+        #3f2b63,
+        #7054a0,
+        #9b85c4,
+        #c9b9e8,
+        #eee8fa
+    );
+
+    background-size: 400% 400%;
+    animation: headerColorChange 12s ease-in-out infinite;
+
+    color: white;
+}
+
+
+/* ✨ Small moving glitter particles */
+
+.main-header::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.9) 0 1px,
+            transparent 1.5px
+        ),
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.55) 0 1px,
+            transparent 1.5px
+        );
+
+    background-size:
+        55px 55px,
+        85px 85px;
+
+    background-position:
+        0 0,
+        25px 35px;
+
+    opacity: 0.45;
+
+    animation: glitterMove 7s linear infinite;
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+/* ✨ Soft light sweep */
+
+.main-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        120deg,
+        transparent 30%,
+        rgba(255,255,255,0.20) 50%,
+        transparent 70%
+    );
+
+    transform: translateX(-100%);
+
+    animation: glitterSweep 5s ease-in-out infinite;
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+/* Header ka actual text aur navigation glitter ke upar */
+
+.main-header .brand-section,
+.main-header .main-nav {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* 🌈 Header color movement */
+
+@keyframes headerColorChange {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    25% {
+        background-position: 50% 0%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    75% {
+        background-position: 50% 100%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* ✨ Glitter particles movement */
+
+@keyframes glitterMove {
+
+    from {
+        background-position:
+            0 0,
+            25px 35px;
+    }
+
+    to {
+        background-position:
+            55px 55px,
+            110px 70px;
+    }
+}
+
+
+/* ✨ Light sweep movement */
+
+@keyframes glitterSweep {
+
+    0%,
+    55% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+} 
+/* =========================================
+   RESET PASSWORD PAGE
+========================================= */
+
+.reset-password-page {
+    min-height: calc(100vh - 150px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #faf8ff,
+            #eee8fa
+        );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 50px 20px;
+}
+
+
+.reset-password-box {
+    width: 100%;
+    max-width: 440px;
+
+    background: white;
+
+    padding: 35px;
+
+    border:
+        1px solid #dfd6ef;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(55, 40, 90, 0.12);
+
+    animation:
+        cardAppear 0.7s ease both;
+}
+
+
+.reset-password-box h2 {
+    text-align: center;
+
+    color: #392e58;
+
+    margin-top: 0;
+
+    font-size: 28px;
+}
+
+
+.reset-password-box .reset-subtitle {
+    color: #777083;
+
+    text-align: center;
+
+    line-height: 1.5;
+
+    margin-bottom: 25px;
+}
+
+
+.reset-password-box label {
+    display: block;
+
+    margin:
+        18px
+        0
+        7px;
+
+    color: #42375c;
+
+    font-weight: 600;
+}
+
+
+.reset-password-box input {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border:
+        1px solid #dcd3ea;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    box-sizing: border-box;
+
+    transition: 0.3s ease;
+}
+
+
+.reset-password-box input:focus {
+    border-color: #8d79c0;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(141, 121, 192, 0.12);
+}
+
+
+.reset-password-box button {
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #7562ae;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+
+.reset-password-box button:hover {
+    background: #59458c;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(55, 40, 92, 0.18);
+}
+
+
+.reset-password-box button:disabled {
+    opacity: 0.7;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+.reset-message {
+    text-align: center;
+
+    margin-top: 18px;
+
+    color: #6752a0;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+.reset-login-link {
+    text-align: center;
+
+    margin-top: 20px;
+}
+
+
+.reset-login-link a {
+    color: #6752a0;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+.reset-login-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .reset-password-page {
+        padding:
+            30px 15px;
+    }
+
+    .reset-password-box {
+        padding:
+            25px 20px;
+    }
+
+}
